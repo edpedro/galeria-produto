@@ -19,7 +19,7 @@ app.use(bodyParser.json())
 
 //Rota principal
 app.get("/", (req, res) =>{
-  res.send("ola mundo!")
+  res.render("index")
 })
 
 //Conexão
