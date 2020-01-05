@@ -1,0 +1,25 @@
+{
+  "name": "galeria-produto",
+  "version": "1.0.0",
+  "description": "galeria de produtos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edu2019/galeria-produto.git"
+  },
+  "author": "Eduardo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edu2019/galeria-produto/issues"
+  },
+  "homepage": "https://github.com/edu2019/galeria-produto#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1"
+  }
+}
