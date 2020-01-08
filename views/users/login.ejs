@@ -1,0 +1,27 @@
+<%- include('./../partials/header.ejs') %>
+
+<body>
+  <%- include('./../partials/navbar.ejs') %>
+
+  <div class="form1">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <form action="/login" method="POST">
+            <div class="form">
+              <div class="input-container sign-up">
+                <div class="avatar-wrapper">
+                  <img src="https://s15.postimg.cc/bfkybc3cr/profile.png" class="avatar" />
+                </div>
+                <h2>Login</h2>
+                <input type="email" placeholder="Email" reqired autocomplete="new-password" />
+                <input type="password" placeholder="Senha" reqired autocomplete="new-password" />
+              </div>
+              <div class="button-group" style="margin-top: -50px;">
+                <button class="btn login-btn" type="submit">LOGIN</button>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <%- include('./../partials/footer.ejs') %>
