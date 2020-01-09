@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <form action="/produtcs/save" method="POST">
+        <form action="/produtcs/save" method="POST" enctype="multipart/form-data">
           <div class="form-product">
             <div class="input-container1 sign-up">
               <h2>CADASTRO DE PRODUTO</h2>
@@ -13,7 +13,7 @@
               <input type="text" name="description" placeholder="Descrição" reqired autocomplete="new-password" />
               <input type="text" name="provider" placeholder="Fornecedor" reqired autocomplete="new-password" />
               <input type="text" name="server" placeholder="Para quer server" reqired autocomplete="new-password" />
-              <input type="file" placeholder="" reqired autocomplete="new-password" />
+              <input type="file" name="file"reqired autocomplete="new-password" />
             </div>
             <div class="button-group" style="margin-top: -50px;">
               <button class="btn login-btn" type="submit">CADASTRAR</button>
