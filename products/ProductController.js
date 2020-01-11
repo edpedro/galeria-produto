@@ -35,7 +35,7 @@ router.post("/produtcs/save", upload.single("file"), (req, res) => {
     server: server,
     imagem: imagem
   }).then(() => {
-    res.redirect("display")
+    res.redirect("display/index")
   })
   
 })

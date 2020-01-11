@@ -2,6 +2,8 @@ const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
 const connection = require("./database/database")
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 
 //Controller
@@ -20,28 +22,63 @@ app.set("view engine", "ejs")
 app.use(express.static("public"))
 
 //Body parser
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 //Database
-connection.authenticate().then(() =>{
+connection.authenticate().then(() => {
   console.log("conectado")
-}).catch(erro =>{
+}).catch(erro => {
   console.log(erro)
 })
 
 //Rotas
-app.use("/",UserController)
-app.use("/",ProductController)
-app.use("/",DisplayController)
+app.use("/", UserController)
+app.use("/", ProductController)
+app.use("/", DisplayController)
 
 
 //Rota principal
-app.get("/", (req, res) =>{
+app.get("/", (req, res) => {
   res.render("index")
 })
 
+//Search
+app.get("/search", (req, res) => {
+  var { search } = req.query
+  search = search.toLowerCase()
+  //pesquisar em varias colunas
+  Product.findAll({
+    where: {
+      [Op.or]: [
+        {
+          code:{
+             [Op.like]: '%' + search + '%'
+           }
+        }, 
+        {
+          provider:{
+             [Op.like]: '%' + search + '%'
+           }
+        },     
+        {
+          description:{
+             [Op.like]: '%' + search + '%'
+           }
+        },            
+      ]
+    
+
+  
+  
+  }
+  }).then(searchs => {
+      var quant = searchs.length
+      res.render("search", { searchs: searchs, quant:quant })
+    })
+})
+
 //Conexão
-app.listen(3000, () =>{
+app.listen(3000, () => {
   console.log("Sevidor ON")
 })

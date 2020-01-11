@@ -1,45 +1,51 @@
-<%- include('./../partials/header.ejs') %>
+<%- include('./partials/header.ejs') %>
 
 <body>
-    <%- include('./../partials/navbar.ejs') %>
+    <%- include('./partials/navbar.ejs') %>
 
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h1 class="text-center page-title">Lista de Produtos</h1>
                 <h5 class="ml-3"><%= quant %> - Produtos</h5>
-            </div>            
-            <% products.forEach(product => { %>
-            <div class="col-md-3">              
+            </div>
+            <% if(searchs.length > 0){ %>
+            <% searchs.forEach(search => { %>
+            <div class="col-md-3">
                 <div class="product-container">
                     <div class="product-image">
                         <span class="hover-link"></span>
                         <a href="#" class="product-link" data-toggle="modal" data-target="#myModal">Visualizar Foto</a>
-                        <img class="img-responsive" src="./images/<%= product.imagem %>" alt="">
+                        <img class="img-responsive" src="./images/<%= search.imagem %>" alt="">
                     </div>
                     <div class="product-description">
                         <div class="product-label">
                             <div class="product-name">
-                                <h1><%= product.code %></h1>
+                                <h1><%= search.code %></h1>
                                 <p class="price">Descrição</p>
-                                <p style="color:#363636"><%= product.description %></p>
+                                <p style="color:#363636"><%= search.description %></p>
                             </div>
                         </div>
                         <div class="product-option">
                             <div class="product-size">
                                 <h3>Fornecedor</h3>
-                                <p style="color:#363636"><%= product.provider %></p>
+                                <p style="color:#363636"><%= search.provider %></p>
                             </div>
                             <div class="product-color">
                                 <h3>Pra que server</h3>
-                                <p style="color:#363636"><%= product.server %></p>
+                                <p style="color:#363636"><%= search.server %></p>
                             </div>
 
                         </div>
                     </div>
-                </div>              
+                </div>
             </div>
             <% })%>
+            <% } else{ %>
+            <div class="b2 card-body">
+                <h3 style="text-align: center; color: red;">Produto não encontrado ):</h3>
+            </div>
+            <% } %>
         </div>
     </div>
     <!-- Modal -->
@@ -60,4 +66,4 @@
         </div>
     </div>
 
-    <%- include('./../partials/footer.ejs') %>
+    <%- include('./partials/footer.ejs') %>

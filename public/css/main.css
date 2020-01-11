@@ -1257,7 +1257,6 @@ border-style: solid;
 border-color: #dad6d6;
 outline: none;
 }
-
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
 color: #a5a5a5;
 opacity: 1; /* Firefox */

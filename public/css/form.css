@@ -118,3 +118,13 @@
  .login {
  display: none;
  }
+
+ textarea {
+  display: block;
+  width: 100%;  
+  background-color: whitesmoke;
+  padding: 7px 10px; 
+  border-style: solid;
+  border-color: #dad6d6;
+  outline: none; 
+  }
