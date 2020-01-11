@@ -24,7 +24,7 @@
             <td><%= product.description %></td>
             <td><%= product.provider %></td>
             <td>
-              <a href="products/edit/<%= product.id %>"><button class="btn btn-warning" style="width: 70px;">Ediitar</button></a>              
+              <a href="product/edit/<%= product.id %>"><button class="btn btn-warning" style="width: 70px;">Editar</button></a>              
               <form method="POST" action="/products/delete" style="display: inline-block;" onsubmit="confirmarDelecao(event, this)">
                 <input type="hidden" name="id" value="<%= product.id %>" />
                 <button class="btn btn-danger">Deletar</button>

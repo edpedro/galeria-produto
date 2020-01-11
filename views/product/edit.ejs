@@ -1,0 +1,26 @@
+<%- include('./../partials/header.ejs') %>
+
+<body>
+  <%- include('./../partials/navbar.ejs') %>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <form action="/product/update" method="POST" enctype="multipart/form-data">         
+          <div class="form-product">
+            <div class="input-container1 sign-up">
+              <h2>Atualizar Produto</h2>
+              <input type="text" name="code" value="<%= products.code  %>" reqired autocomplete="new-password" />
+              <input type="text" name="description" value="<%= products.description %>" reqired autocomplete="new-password" />
+              <input type="text" name="provider" value="<%= products.provider %>" reqired autocomplete="new-password" />
+              <textarea type="text" name="server" reqired autocomplete="new-password" style="margin-top: 10px;"><%= products.server %></textarea>
+              <input type="file" name="file"reqired autocomplete="new-password" />
+            </div>
+            <div class="button-group" style="margin-top: -50px;">
+              <button class="btn login-btn" type="submit">CADASTRAR</button>
+            </div>
+          </div>
+          <input type="hidden" name="id" value="<%=products.id %>" />         
+        </form>
+      </div>
+    </div>
+    <%- include('./../partials/footer.ejs') %>

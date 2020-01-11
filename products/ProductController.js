@@ -40,7 +40,7 @@ router.post("/products/save", upload.single("file"), (req, res) => {
   
 })
 //Listar produtos
-router.get("/product/index", (req, res) => {
+router.get("/product", (req, res) => {
   Product.findAll({
     order:[
       ['id', 'DESC']
@@ -60,7 +60,7 @@ router.post("/products/delete", (req, res) =>{
           id: id
         }
       }).then(() =>{
-        res.redirect("/product/index")
+        res.redirect("/product")
       })
     }else{
       res.redirect("/product/index")
@@ -69,5 +69,48 @@ router.post("/products/delete", (req, res) =>{
     res.redirect("/product/index")
   }
 })
+//Editar produtos
+router.get("/product/edit/:id", (req, res) =>{
+  var id = req.params.id
+  if(isNaN(id)){
+    res.redirect("/product")
+  }else{
+    Product.findByPk(id).then(products =>{      
+      if(products != undefined){
+        res.render("product/edit", {products:products})
+      }else{
+        res.redirect("/product")
+      }      
+    }).catch(erro =>{
+      res.redirect("/product")
+    })
+  }
+})
+//Atualizar Produto
+router.post("/product/update",upload.single("file"), (req, res) =>{
+  var id = req.body.id
+  var code = req.body.code
+  var description = req.body.description
+  var provider = req.body.provider
+  var server = req.body.server
+  var imagem  =  req.file.filename  
+
+  Product.update({
+    code: code,
+    description: description,
+    provider: provider,
+    server: server,
+    imagem: imagem
+  },
+    {
+      where:{
+        id: id
+      }
+    }
+  ).then(() =>{
+    res.redirect("/product")
+  })  
+})
+
 
 module.exports = router
