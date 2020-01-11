@@ -17,11 +17,11 @@ const upload = multer({
   storage
 })
 
-router.get("/products/create", (req, res) => {
+router.get("/product/create", (req, res) => {
   res.render("product/create")
 })
-
-router.post("/produtcs/save", upload.single("file"), (req, res) => {
+//Salvar produtos
+router.post("/products/save", upload.single("file"), (req, res) => {
   var imagem  =  req.file.filename  
   var code = req.body.code
   var description = req.body.description
@@ -35,9 +35,39 @@ router.post("/produtcs/save", upload.single("file"), (req, res) => {
     server: server,
     imagem: imagem
   }).then(() => {
-    res.redirect("display/index")
+    res.redirect("product")
   })
   
+})
+//Listar produtos
+router.get("/product/index", (req, res) => {
+  Product.findAll({
+    order:[
+      ['id', 'DESC']
+    ]
+  }).then(products =>{
+    var quant = products.length
+    res.render("product/index", {products: products, quant: quant})
+  })  
+})
+//Deletar produtos
+router.post("/products/delete", (req, res) =>{
+  var id = req.body.id
+  if(id != undefined){
+    if(!isNaN(id)){
+      Product.destroy({
+        where:{
+          id: id
+        }
+      }).then(() =>{
+        res.redirect("/product/index")
+      })
+    }else{
+      res.redirect("/product/index")
+    }
+  }else{
+    res.redirect("/product/index")
+  }
 })
 
 module.exports = router
