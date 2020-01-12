@@ -12,6 +12,7 @@ const UserController = require("./users/UserController")
 const ProductController = require("./products/ProductController")
 const DisplayController = require("./display/DisplayController")
 
+
 //Model
 const Product = require("./products/Product")
 const User = require("./users/User")
@@ -48,9 +49,10 @@ app.use("/", ProductController)
 app.use("/", DisplayController)
 
 
+
 //Rota principal
 app.get("/", (req, res) => {
-  res.render("index")
+  res.render("index", {session: req.session.user})
 })
 
 //Search
@@ -80,7 +82,7 @@ app.get("/search", (req, res) => {
   }
   }).then(searchs => {
       var quant = searchs.length
-      res.render("search", { searchs: searchs, quant:quant })
+      res.render("search", { searchs: searchs, quant:quant, session: req.session.user })
     })
 })
 

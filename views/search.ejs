@@ -1,7 +1,11 @@
 <%- include('./partials/header.ejs') %>
 
 <body>
-    <%- include('./partials/navbar.ejs') %>
+    <% if(session){ %>
+        <%- include('./partials/homenavbar.ejs') %>
+      <% } else{ %>
+        <%- include('./partials/navbar.ejs') %>
+      <% } %>
 
     <div class="container">
         <div class="row">

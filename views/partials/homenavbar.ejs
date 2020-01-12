@@ -1,5 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #00ad5f;">
-     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+        aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Alterna navegação">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <a class="navbar-brand" href="/">Sistem Catalog</a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
@@ -7,13 +11,17 @@
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="/display">Produtos<span class="sr-only"></span></a>
+            </li>         
+            <li class="nav-item active">
+                <a class="nav-link" href="/product/create">Cadastrar produtos<span class="sr-only"></span></a>
             </li>
-        </ul>
+            <li class="nav-item active">
+                <a class="nav-link" href="/product">Listar produto<span class="sr-only">(Página atual)</span></a>
+            </li>
+        </ul> 
         <div class="form-inline my-2 my-lg-0">
-            <a href="/login"><button class="btn btn-outline-dark my-2 my-sm-0" type="submit"
-                    style="background-color:#2DD493;color:#ffff;">Login</button></a>
-            <a href="/create"><button class="btn btn-outline-dark my-2 my-sm-0" type="submit"
-                    style="background-color:#2DD493;color:#ffff; margin: 4px;">Cadastrar</button></a>
-        </div>
+            <a href="/logout"><button class="btn btn-outline-dark my-2 my-sm-0" type="submit"
+                    style="background-color:#2DD493;color:#ffff;">Sair</button></a>         
+        </div>      
     </div>
 </nav>

@@ -1,16 +1,20 @@
 <%- include('./../partials/header.ejs') %>
 
 <body>
+    <% if(session){ %>
+    <%- include('./../partials/homenavbar.ejs') %>
+    <% } else{ %>
     <%- include('./../partials/navbar.ejs') %>
+    <% } %>
 
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h1 class="text-center page-title">Lista de Produtos</h1>
                 <h5 class="ml-3"><%= quant %> - Produto(s)</h5>
-            </div>            
+            </div>
             <% products.forEach(product => { %>
-            <div class="col-md-3">              
+            <div class="col-md-3">
                 <div class="product-container">
                     <div class="product-image">
                         <span class="hover-link"></span>
@@ -22,22 +26,22 @@
                             <div class="product-name">
                                 <h1><%= product.code %></h1>
                                 <p class="price">Descrição</p>
-                                <p style="color:#363636"><%= product.description %></p>
+                                <p style="color:#363636; text-transform: uppercase;"><%= product.description %></p>
                             </div>
                         </div>
                         <div class="product-option">
                             <div class="product-size">
                                 <h3>Fornecedor</h3>
-                                <p style="color:#363636"><%= product.provider %></p>
+                                <p style="color:#363636; text-transform: uppercase"><%= product.provider %></p>
                             </div>
                             <div class="product-color">
                                 <h3>Pra que server</h3>
-                                <p style="color:#363636"><%= product.server %></p>
+                                <p style="width: 13em;word-wrap: break-word;color:#363636; text-transform: uppercase">
+                                    <%= product.server %></p>
                             </div>
-
                         </div>
                     </div>
-                </div>              
+                </div>
             </div>
             <% })%>
         </div>

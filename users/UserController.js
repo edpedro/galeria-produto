@@ -48,7 +48,7 @@ router.post("/login", (req, res) =>{
             email: user.email,
             name: user.name           
           }
-          res.redirect("/panel")
+          res.redirect("/product")
         }else{
           res.redirect("/users/login")
         }
@@ -59,7 +59,7 @@ router.post("/login", (req, res) =>{
   })
 router.get("/logout", (req, res) =>{
   req.session.user = undefined
-  res.redirect("index")
+  res.redirect("/")
 })
 
 module.exports = router

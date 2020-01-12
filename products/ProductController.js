@@ -21,7 +21,7 @@ router.get("/product/create", (req, res) => {
   res.render("product/create")
 })
 //Salvar produtos
-router.post("/products/save", upload.single("file"), (req, res) => {
+router.post("/product/save", upload.single("file"), (req, res) => {
   var imagem  =  req.file.filename  
   var code = req.body.code
   var description = req.body.description
@@ -35,12 +35,12 @@ router.post("/products/save", upload.single("file"), (req, res) => {
     server: server,
     imagem: imagem
   }).then(() => {
-    res.redirect("product")
+    res.redirect("index")
   })
   
 })
 //Listar produtos
-router.get("/product", (req, res) => {
+router.get("/product/index", (req, res) => {
   Product.findAll({
     order:[
       ['id', 'DESC']
