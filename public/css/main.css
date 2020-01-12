@@ -1204,21 +1204,17 @@ h1.page-title {
 }
 
 /* form login */
-.form1 {
- 
- margin-left: 500px;
-  }
 
 .form {
+width: 100%;
 margin-top: 90px;
-margin-left: 70px;
+margin-left: 40%;
 margin-right: 70px;
 background-color: white;
 box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 min-height: 400px;
 border-radius: 5px 5px 10px 10px;
 position: relative;
-
 }
 
 .form .input-container {
@@ -1330,8 +1326,8 @@ margin-top: 5px;
   width: 119px;
   height: 120px;
   position: absolute;
-  top: -53px;
-  left: 30%;
+  top: -73px;
+  margin-left: 10%;
   border-radius: 50%;
 
 }

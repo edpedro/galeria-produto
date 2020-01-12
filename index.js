@@ -4,6 +4,7 @@ const bodyParser = require("body-parser")
 const connection = require("./database/database")
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+const Session = require("express-session")
 
 
 //Controller
@@ -13,7 +14,16 @@ const DisplayController = require("./display/DisplayController")
 
 //Model
 const Product = require("./products/Product")
+const User = require("./users/User")
 
+//Session
+app.use(Session({
+  secret: "projetogaleriaproduto",
+  cookie: {maxAge: 9898489484848787874},
+  proxy: true,
+  resave: false,
+  saveUninitialized: false
+}))
 
 //View engine
 app.set("view engine", "ejs")
@@ -66,11 +76,7 @@ app.get("/search", (req, res) => {
              [Op.like]: '%' + search + '%'
            }
         },            
-      ]
-    
-
-  
-  
+     ] 
   }
   }).then(searchs => {
       var quant = searchs.length
