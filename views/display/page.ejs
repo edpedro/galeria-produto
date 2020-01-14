@@ -10,16 +10,15 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="text-center page-title">Lista de Produtos</h1>
-                <h5 class="ml-3"><%= quant %> - Produto(s)</h5>
+                <h1 class="text-center page-title">Lista de Produtos</h1>               
             </div>
-            <% products.forEach(product => { %>
+            <% result.products.rows.forEach(product => { %>             
             <div class="col-md-3">
                 <div class="product-container">
                     <div class="product-image">
                         <span class="hover-link"></span>
                         <a href="#" class="product-link" data-toggle="modal" data-target="#myModal">Visualizar Foto</a>
-                        <img class="img-responsive" src="./images/<%= product.imagem %>" alt="">
+                        <img class="img-responsive" src="../../images/<%= product.imagem %>" alt="">
                     </div>
                     <div class="product-description">
                         <div class="product-label">
@@ -45,18 +44,33 @@
             </div>
             <% })%>
         </div>
-           <!-- paganatio -->
-    <nav aria-label="Page navigation example" style="margin-left: 40%;">
-        <ul class="pagination">             
-          <li class="page-item">
-            <a class="page-link" href="/display/page/2" aria-label="Next">
-              <span aria-hidden="true">Next &raquo;</span>
-              <span class="sr-only">Next</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
+         <!-- paganatio -->
+         <nav aria-label="Page navigation example" style="margin-left: 40%;">
+          <ul class="pagination">         
+            <li class="page-item">
+              <% if(result.page > 2){ %>
+              <a class="page-link" href="/display/page/<%= result.page - 1 %>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;Prev</span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <%}else if(result.page == 2) {%>
+                <a class="page-link" href="/display" aria-label="Previous">
+                  <span aria-hidden="true">&laquo; Prev</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              <% }%> 
+            </li> 
+            <% if(result.next) { %>       
+            <li class="page-item">             
+              <a class="page-link" href="/display/page/<%= result.page + 1 %>" aria-label="Next">
+                <span aria-hidden="true">Next &raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>              
+            </li>
+            <% } %>
+          </ul>
+        
+    </div>   
     <!-- Modal -->
 
     <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -66,10 +80,10 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <img src="./images/modem.jpg" class="img-responsive" style="width: 200px; margin-bottom: 4px;">
-                    <img src="./images/modem.jpg" class="img-responsive" style="width: 200px; margin-bottom: 4px;">
-                    <img src="./images/modem.jpg" class="img-responsive" style="width: 200px;">
-                    <img src="./images/modem.jpg" class="img-responsive" style="width: 200px;">
+                    <img src="" class="img-responsive" style="width: 200px; margin-bottom: 4px;">
+                    <img src="../../images/modem.jpg" class="img-responsive" style="width: 200px; margin-bottom: 4px;">
+                    <img src="../../images/modem.jpg" class="img-responsive" style="width: 200px;">
+                    <img src="../../images/modem.jpg" class="img-responsive" style="width: 200px;">
                 </div>
             </div>
         </div>

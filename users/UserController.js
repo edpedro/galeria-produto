@@ -3,8 +3,6 @@ const router = express.Router()
 const bcrypt = require("bcryptjs")
 const User = require("./User")
 
-
-
 router.get("/users/create", (req, res) =>{
   res.render("users/create")
 })
@@ -48,7 +46,7 @@ router.post("/login", (req, res) =>{
             email: user.email,
             name: user.name           
           }
-          res.redirect("/product")
+          res.redirect("/")
         }else{
           res.redirect("/users/login")
         }
