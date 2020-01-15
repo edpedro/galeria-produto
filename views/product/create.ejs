@@ -3,17 +3,22 @@
 <body>
   <%- include('./../partials/homenavbar.ejs') %>
   <div class="container">
+    <% if (erros) { %>
+      <div class="alert alert-danger" role="alert" data-dismiss="alert" style="height: 40px;font-size: 15px;width: 300px;">
+        <p>Favor preencher todos os campos</p>
+      </div>
+      <% } %>
     <div class="row">
-      <div class="col-md-6 col-md-offset-3">
+      <div class="col-md-6 col-md-offset-3" style="margin-top: -60px;">
         <form action="/product/save" method="POST" enctype="multipart/form-data">
           <div class="form-product">
             <div class="input-container1 sign-up">
-              <h2>CADASTRO DE PRODUTO</h2>
-              <input type="text" name="code" placeholder="Codigo"  reqired autocomplete="new-password" />
-              <input type="text" name="description" placeholder="Descrição"  reqired autocomplete="new-password" />
-              <input type="text" name="provider" placeholder="Fornecedor"  reqired autocomplete="new-password" />
-              <textarea type="text" name="server" placeholder="Para quer server"  reqired autocomplete="new-password" style="margin-top: 10px;"></textarea>
-              <input type="file" name="file"reqired autocomplete="new-password" />
+              <h2>CADASTRO DE PRODUTO</h2>             
+              <input type="text" name="code" placeholder="Codigo"  reqired autocomplete="new-password" />             
+              <input type="text" name="description" placeholder="Descrição"  reqired autocomplete="new-password" />            
+              <input type="text" name="provider" placeholder="Fornecedor"  reqired autocomplete="new-password" />            
+              <textarea type="text" name="server" placeholder="Para quer server"  reqired autocomplete="new-password" style="margin-top: 10px;"></textarea>            
+              <input type="file" name="file"reqired autocomplete="new-password" />            
             </div>
             <div class="button-group" style="margin-top: -50px;">
               <button class="btn login-btn" type="submit">CADASTRAR</button>
@@ -22,4 +27,11 @@
         </form>
       </div>
     </div>
+    <script>
+      window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+          $(this).remove();
+        });
+      }, 2000);
+    </script>
     <%- include('./../partials/footer.ejs') %>

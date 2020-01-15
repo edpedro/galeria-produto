@@ -5,6 +5,11 @@
 
   <div class="form1">
     <div class="container">
+      <% if (msg.length > 0) { %>        
+        <div class="alert alert-danger " role="alert" data-dismiss="alert" style="width: 400px;">
+          <%= msg %>
+        </div>
+       <% } %>  
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
           <form action="/users/save" method="POST">
@@ -15,9 +20,24 @@
               </div>
               <h2>CADASTRE-SE</h2>             
                 <input type="text" name="name" placeholder="Nome" style="text-transform:capitalize" reqired autocomplete="new-password" />
+                <% if (erros.name) { %>
+                  <div class="alert alert-danger" role="alert" data-dismiss="alert" style="height: 40px;font-size: 15px;">
+                    <%= erros.name.msg %>
+                  </div>
+                  <% } %>
                 <input type="email" name="email" placeholder="Email" reqired autocomplete="new-password" />
+                <% if (erros.email) { %>
+                  <div class="alert alert-danger" role="alert" data-dismiss="alert" style="height: 40px;font-size: 15px;">
+                    <%= erros.email.msg %>
+                  </div>
+                  <% } %>
                 <input type="password" name="password" placeholder="Senha" reqired autocomplete="new-password" /> 
-            </div>          
+                <% if (erros.password) { %>
+                  <div class="alert alert-danger mb-5" role="alert" data-dismiss="alert" style="height: 40px; font-size: 15px;">
+                    <%= erros.password.msg %>
+                  </div>
+                  <% } %>
+              </div>          
             <div class="button-group">
               <button class="btn login-btn" type="submit">CADASTRAR</button>              
             </div>         
@@ -26,4 +46,11 @@
         </div>
       </div>
     </div>
+    <script>
+      window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+          $(this).remove();
+        });
+      }, 3000);
+    </script>
     <%- include('./../partials/footer.ejs') %> 

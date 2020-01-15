@@ -1218,7 +1218,7 @@ position: relative;
 
 .form .input-container {
   padding: 30px 30px 0 30px;
-  height: 400px;
+  height: 410px;
 }
 
 .form h2 {
@@ -1361,3 +1361,18 @@ outline:0 !important;
 .login {
 display: none;
 }
+.pagination a{
+  background-color: #0000;
+  color: #2DD493;
+  width: 80px;
+  margin: 10px;
+
+}
+.pagination a:hover{
+  color: #fff;
+  background-color:#2DD493 ;
+}
+.pagination{
+ height: 50px;
+}
+

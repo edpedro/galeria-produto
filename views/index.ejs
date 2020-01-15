@@ -6,9 +6,14 @@
   <% } else{ %>
     <%- include('./partials/navbar.ejs') %>
   <% } %>
-
-  <div class="s130">
-    <form action="/search" method="GET">
+<div class="container">
+  <% if (msg.length > 0) { %>        
+    <div class="alert alert-success " role="alert" data-dismiss="alert" style="width: 400px;">
+      <%= msg %>
+    </div>
+   <% } %>  
+  <div class="s130">   
+    <form action="/search" method="GET">     
       <div class="inner-form">
         <div class="input-field first-wrap">
           <div class="svg-wrapper">
@@ -27,4 +32,12 @@
       <span class="info">ex. Código, Descrição, Fornecedor</span>
     </form>
   </div>
+</div>
+<script>
+  window.setTimeout(function () {
+    $(".alert").fadeTo(500, 0).slideUp(500, function () {
+      $(this).remove();
+    });
+  }, 3000);
+</script>
   <%- include('./partials/footer.ejs') %>

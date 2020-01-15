@@ -5,7 +5,7 @@ const Product = require("../products/Product")
 
 router.get("/display", (req, res) => {
   Product.findAll({
-    limit: 4
+    limit: 8
   }).then(products => {
     var quant = products.length
     res.render("display/index", { products: products, quant:quant, session: req.session.user  })
@@ -20,18 +20,18 @@ router.get("/display/page/:num", (req, res) =>{
   if(isNaN(page) || page == 1){
     offset = 0;
   }else{
-    offset = (parseInt(page) -1) * 2;
+    offset = (parseInt(page) -1) * 8;
   }
 
   Product.findAndCountAll({
-    limit: 4,
+    limit: 8,
     offset: offset,
     order: [
       ['id', 'DESC']
     ]
   }).then(products =>{    
     var next;
-    if(offset + 4 >= products.count){
+    if(offset + 8 >= products.count){
       next = false
     }else{
       next = true

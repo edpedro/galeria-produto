@@ -5,6 +5,8 @@ const connection = require("./database/database")
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const Session = require("express-session")
+var flash = require('connect-flash');
+var cookieParser = require('cookie-parser')
 
 
 //Controller
@@ -25,6 +27,10 @@ app.use(Session({
   resave: false,
   saveUninitialized: false
 }))
+//mensagem
+app.use(cookieParser())
+app.use(flash());
+
 
 //View engine
 app.set("view engine", "ejs")
@@ -52,7 +58,7 @@ app.use("/", DisplayController)
 
 //Rota principal
 app.get("/", (req, res) => {
-  res.render("index", {session: req.session.user})
+  res.render("index", {session: req.session.user, msg: req.flash('msg')})
 })
 
 //Search

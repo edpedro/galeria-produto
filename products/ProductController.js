@@ -3,97 +3,111 @@ const router = express.Router()
 const Product = require("./Product")
 const multer = require("multer")
 const path = require("path")
+const { check, validationResult } = require("express-validator")
 
 const storage = multer.diskStorage({
-  destination: function(req, file, cb){
+  destination: function (req, file, cb) {
     cb(null, "public/images/")
   },
-  filename: function(req, file, cb){
+  filename: function (req, file, cb) {
     cb(null, file.originalname + Date.now() + path.extname(file.originalname))
   }
-}) 
+})
 
 const upload = multer({
   storage
 })
 
 router.get("/product/create", (req, res) => {
-  res.render("product/create")
+  res.render("product/create", {erros: {}})
 })
 //Salvar produtos
-router.post("/product/save", upload.single("file"), (req, res) => {
-  var imagem  =  req.file.filename  
-  var code = req.body.code
-  var description = req.body.description
-  var provider = req.body.provider
-  var server = req.body.server
+router.post("/product/save", [
+  //Validação  
+  check('code').not().isEmpty(),
+  check('description').not().isEmpty(),
+  check('provider').not().isEmpty(),
+  check('server').not().isEmpty(),
+  check('file').not().isEmpty()
 
-  Product.create({
-    code: code,
-    description: description,
-    provider: provider,
-    server: server,
-    imagem: imagem
-  }).then(() => {
-    res.redirect("index")
-  })
-  
+], upload.single("file"), (req, res) => {
+  const erros = validationResult(req)
+  //Tratamento de erro
+  if (!erros.isEmpty()) {
+    res.render("product/create", { erros: erros.mapped(), msg: '' })
+  } else {
+    var imagem = req.file.filename
+    var code = req.body.code
+    var description = req.body.description
+    var provider = req.body.provider
+    var server = req.body.server
+
+    Product.create({
+      code: code,
+      description: description,
+      provider: provider,
+      server: server,
+      imagem: imagem
+    }).then(() => {
+      res.redirect("index")
+    })
+  }
 })
 //Listar produtos
 router.get("/product/index", (req, res) => {
   Product.findAll({
-    order:[
+    order: [
       ['id', 'DESC']
     ]
-  }).then(products =>{
+  }).then(products => {
     var quant = products.length
-    res.render("product/index", {products: products, quant: quant})
-  })  
+    res.render("product/index", { products: products, quant: quant })
+  })
 })
 //Deletar produtos
-router.post("/products/delete", (req, res) =>{
+router.post("/products/delete", (req, res) => {
   var id = req.body.id
-  if(id != undefined){
-    if(!isNaN(id)){
+  if (id != undefined) {
+    if (!isNaN(id)) {
       Product.destroy({
-        where:{
+        where: {
           id: id
         }
-      }).then(() =>{
+      }).then(() => {
         res.redirect("/product")
       })
-    }else{
+    } else {
       res.redirect("/product/index")
     }
-  }else{
+  } else {
     res.redirect("/product/index")
   }
 })
 //Editar produtos
-router.get("/product/edit/:id", (req, res) =>{
+router.get("/product/edit/:id", (req, res) => {
   var id = req.params.id
-  if(isNaN(id)){
+  if (isNaN(id)) {
     res.redirect("/product")
-  }else{
-    Product.findByPk(id).then(products =>{      
-      if(products != undefined){
-        res.render("product/edit", {products:products})
-      }else{
+  } else {
+    Product.findByPk(id).then(products => {
+      if (products != undefined) {
+        res.render("product/edit", { products: products })
+      } else {
         res.redirect("/product")
-      }      
-    }).catch(erro =>{
+      }
+    }).catch(erro => {
       res.redirect("/product")
     })
   }
 })
 //Atualizar Produto
-router.post("/product/update",upload.single("file"), (req, res) =>{
+router.post("/product/update", upload.single("file"), (req, res) => {
   var id = req.body.id
   var code = req.body.code
   var description = req.body.description
   var provider = req.body.provider
   var server = req.body.server
-  var imagem  =  req.file.filename  
+  var imagem = req.file.filename
 
   Product.update({
     code: code,
@@ -103,13 +117,13 @@ router.post("/product/update",upload.single("file"), (req, res) =>{
     imagem: imagem
   },
     {
-      where:{
+      where: {
         id: id
       }
     }
-  ).then(() =>{
+  ).then(() => {
     res.redirect("/product")
-  })  
+  })
 })
 
 
