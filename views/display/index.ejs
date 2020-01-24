@@ -11,15 +11,16 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="text-center page-title">Lista de Produtos</h1>
-                <h5 class="ml-3"><%= quant %> - Produto(s)</h5>
+                <h5 class="ml-3"><%= products.length %> - Produto(s)</h5>  
             </div>
+
             <% products.forEach(product => { %>
             <div class="col-md-3">
                 <div class="product-container">
                     <div class="product-image">
                         <span class="hover-link"></span>
                         <a href="#" class="product-link" data-toggle="modal" data-target="#myModal">Visualizar Foto</a>
-                        <img class="img-responsive" src="./images/<%= product.imagem %>" alt="">
+                        <img class="img-responsive" src="./images/<%= product.image %>" alt="">
                     </div>
                     <div class="product-description">
                         <div class="product-label">
@@ -43,36 +44,40 @@
                     </div>
                 </div>
             </div>
-            <% })%>
+            <% })%>           
         </div>
-           <!-- paganatio -->
-    <nav aria-label="Page navigation example" class="page" style="margin-left: 40%;">
-        <ul class="pagination">             
-          <li class="page-item">
-            <a class="page-link" href="/display/page/2" aria-label="Next">
-              <span aria-hidden="true">Next &raquo;</span>
-              <span class="sr-only">Next</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <!-- Modal -->
+         <!-- paganatio -->
+         <nav aria-label="Page navigation example" class="page" style="margin-left: 40%;">
+            <ul class="pagination">
+                <li class="page-item">
+                    <% if(products.length >= 8){ %>
+                    <a class="page-link" href="/display/page/2" aria-label="Next">
 
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body" style="padding: 20px;">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <img src="./images/modem.jpg" class="img-responsive" style="width: 200px; margin-bottom: 4px;">
-                    <img src="./images/modem.jpg" class="img-responsive" style="width: 200px; margin-bottom: 4px;">
-                    <img src="./images/modem.jpg" class="img-responsive" style="width: 200px;">
-                    <img src="./images/modem.jpg" class="img-responsive" style="width: 200px;">
+                        <span aria-hidden="true">Next &raquo;</span>
+                        <span class="sr-only">Next</span>
+
+                    </a>
+                    <% } %>
+                </li>
+            </ul>
+        </nav>
+        <!-- Modal -->
+
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body" style="padding: 20px;">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <img src="./images/modem.jpg" class="img-responsive" style="width: 200px; margin-bottom: 4px;">
+                        <img src="./images/modem.jpg" class="img-responsive" style="width: 200px; margin-bottom: 4px;">
+                        <img src="./images/modem.jpg" class="img-responsive" style="width: 200px;">
+                        <img src="./images/modem.jpg" class="img-responsive" style="width: 200px;">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <%- include('./../partials/footer.ejs') %>
+        <%- include('./../partials/footer.ejs') %>

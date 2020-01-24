@@ -17,11 +17,11 @@ const Product = connection.define("products", {
   server: {
     type: Sequelize.STRING,
     allowNull: false
-  },
-  imagem: {
+  }, 
+  image: {
     type: Sequelize.STRING,
     allowNull: false
-  }
+  }  
 })
-
+//Product.sync({force: true})
 module.exports = Product

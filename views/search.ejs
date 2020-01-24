@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="text-center page-title">Lista de Produtos</h1>
-                <h5 class="ml-3"><%= quant %> - Produto(s)</h5>
+                <h5 class="ml-3"><%= searchs.length %> - Produto(s)</h5>
             </div>
             <% if(searchs.length > 0){ %>
             <% searchs.forEach(search => { %>
@@ -20,7 +20,7 @@
                     <div class="product-image">
                         <span class="hover-link"></span>
                         <a href="#" class="product-link" data-toggle="modal" data-target="#myModal">Visualizar Foto</a>
-                        <img class="img-responsive" src="./images/<%= search.imagem %>" alt="">
+                        <img class="img-responsive" src="./images/<%= search.image %>" alt="">
                     </div>
                     <div class="product-description">
                         <div class="product-label">

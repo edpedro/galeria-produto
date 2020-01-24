@@ -1,7 +1,7 @@
-<%- include('./../partials/header.ejs') %>
+<%- include('../../partials/header.ejs') %>
 
 <body>
-  <%- include('./../partials/homenavbar.ejs') %>
+  <%- include('../../partials/homenavbar.ejs') %>
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -25,7 +25,7 @@
             <td><%= product.provider %></td>
             <td>
               <a href="product/edit/<%= product.id %>"><button class="btn btn-warning" style="width: 70px;">Editar</button></a>              
-              <form method="POST" action="/products/delete" style="display: inline-block;" onsubmit="confirmarDelecao(event, this)">
+              <form method="POST" action="/product/delete" style="display: inline-block;" onsubmit="confirmarDelecao(event, this)">
                 <input type="hidden" name="id" value="<%= product.id %>" />
                 <button class="btn btn-danger">Deletar</button>
             </form>            
@@ -46,4 +46,4 @@
     }
   }
 </script>
-  <%- include('./../partials/footer.ejs') %>
+  <%- include('../../partials/footer.ejs') %>

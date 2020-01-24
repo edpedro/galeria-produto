@@ -1,7 +1,7 @@
-<%- include('./../partials/header.ejs') %>
+<%- include('../../partials/header.ejs') %>
 
 <body>
-  <%- include('./../partials/navbar.ejs') %>
+  <%- include('../../partials/navbar.ejs') %>
 
   <div class="form1">
     <div class="container">  
@@ -19,6 +19,7 @@
                   <img src="https://s15.postimg.cc/bfkybc3cr/profile.png" class="avatar" />
                 </div>
                 <h2>Login</h2>
+                <label>Email</label>
                 <input type="email" name="email" placeholder="Email" reqired autocomplete="new-password" />
                 <% if (erros.email) { %>
                   <div class="alert alert-danger" role="alert" data-dismiss="alert" style="height: 40px;font-size: 15px;">
@@ -46,4 +47,4 @@
         });
       }, 3000);
     </script>
-    <%- include('./../partials/footer.ejs') %>
+    <%- include('../../partials/footer.ejs') %>

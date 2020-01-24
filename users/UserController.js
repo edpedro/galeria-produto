@@ -5,7 +5,7 @@ const User = require("./User")
 const { check, validationResult } = require("express-validator")
 
 router.get("/users/create", (req, res) => {
-  res.render("users/create", { erros: {}, msg: req.flash('msg') })
+  res.render("admin/users/create", { erros: {}, msg: req.flash('msg') })
 })
 router.post("/users/save", [
   //Validação
@@ -18,7 +18,7 @@ router.post("/users/save", [
   const erros = validationResult(req)
   //Tratamento de erro
   if (!erros.isEmpty()) {
-    res.render("users/create", { erros: erros.mapped(), msg: '' })
+    res.render("admin/users/create", { erros: erros.mapped(), msg: '' })
   } else {
 
     var name = req.body.name
@@ -28,7 +28,7 @@ router.post("/users/save", [
     User.findOne({ where: { email: email } }).then(user => {
       if (user != undefined) {
         req.flash('msg', 'Email já existe')
-        res.redirect("create")
+        res.redirect("/admin/create")
       } else {
         var salt = bcrypt.genSaltSync(10)
         var hash = bcrypt.hashSync(password, salt)
@@ -38,17 +38,17 @@ router.post("/users/save", [
           email: email,
           password: hash
         }).then(() => {
-          res.redirect("users/create")
+          res.redirect("/admin/users/create")
         })
       }
     }).catch((error) => {
       req.flash('msg', 'Erro, Favor preencher todos campos')
-      res.redirect("users/create")
+      res.redirect("/admin/users/create")
     })
   }
 })
 router.get("/users/login", (req, res) => {
-  res.render("users/login", { erros: {}, msg: req.flash('msg') })
+  res.render("admin/users/login", { erros: {}, msg: req.flash('msg') })
 })
 
 router.post("/login",  [
@@ -59,7 +59,7 @@ router.post("/login",  [
 
   const erros = validationResult(req)
   if (!erros.isEmpty()) {
-    res.render("users/login", { erros: erros.mapped(), msg: '' })
+    res.render("admin/users/login", { erros: erros.mapped(), msg: '' })
 
   } else {
     var email = req.body.email
@@ -79,11 +79,11 @@ router.post("/login",  [
           res.redirect("/")
         } else {
           req.flash('msg', 'Email ou Senha invalido')
-          res.redirect("/users/login")
+          res.redirect("/admin/users/login")
         }
       } else {
         req.flash('msg', 'Email ou Senha invalido')
-        res.redirect("/users/login")
+        res.redirect("/admin/users/login")
       }
     })
   }

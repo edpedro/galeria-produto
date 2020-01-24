@@ -7,11 +7,7 @@
     <%- include('./partials/navbar.ejs') %>
   <% } %>
 <div class="container">
-  <% if (msg.length > 0) { %>        
-    <div class="alert alert-success " role="alert" data-dismiss="alert" style="width: 400px;">
-      <%= msg %>
-    </div>
-   <% } %>  
+ 
   <div class="s130">   
     <form action="/search" method="GET">     
       <div class="inner-form">
@@ -33,11 +29,4 @@
     </form>
   </div>
 </div>
-<script>
-  window.setTimeout(function () {
-    $(".alert").fadeTo(500, 0).slideUp(500, function () {
-      $(this).remove();
-    });
-  }, 3000);
-</script>
   <%- include('./partials/footer.ejs') %>

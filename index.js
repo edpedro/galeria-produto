@@ -19,6 +19,7 @@ const DisplayController = require("./display/DisplayController")
 const Product = require("./products/Product")
 const User = require("./users/User")
 
+
 //Session
 app.use(Session({
   secret: "projetogaleriaproduto",

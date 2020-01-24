@@ -3,7 +3,9 @@ const router = express.Router()
 const Product = require("./Product")
 const multer = require("multer")
 const path = require("path")
+const adminAuth = require("../middleware/adminAuth")
 const { check, validationResult } = require("express-validator")
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -18,54 +20,44 @@ const upload = multer({
   storage
 })
 
-router.get("/product/create", (req, res) => {
-  res.render("product/create", {erros: {}})
+router.get("/product/create", adminAuth, (req, res) => {
+  Product.findAll().then(products => {
+    res.render("admin/product/create", { erros: {}, msg: '', })
+  });
+
+
 })
 //Salvar produtos
-router.post("/product/save", [
-  //Validação  
-  check('code').not().isEmpty(),
-  check('description').not().isEmpty(),
-  check('provider').not().isEmpty(),
-  check('server').not().isEmpty(),
-  check('file').not().isEmpty()
+router.post("/product/save", adminAuth, upload.single("file"), (req, res) => {
 
-], upload.single("file"), (req, res) => {
-  const erros = validationResult(req)
-  //Tratamento de erro
-  if (!erros.isEmpty()) {
-    res.render("product/create", { erros: erros.mapped(), msg: '' })
-  } else {
-    var imagem = req.file.filename
-    var code = req.body.code
-    var description = req.body.description
-    var provider = req.body.provider
-    var server = req.body.server
-
-    Product.create({
-      code: code,
-      description: description,
-      provider: provider,
-      server: server,
-      imagem: imagem
-    }).then(() => {
-      res.redirect("index")
-    })
-  }
+  var imagem = req.file.filename
+  var code = req.body.code
+  var description = req.body.description
+  var provider = req.body.provider
+  var server = req.body.server
+  Product.create({
+    code: code,
+    description: description,
+    provider: provider,
+    server: server,
+    image: imagem
+  }).then(() => {
+    res.redirect("/product")
+  })
 })
 //Listar produtos
-router.get("/product/index", (req, res) => {
+router.get("/product", adminAuth, (req, res) => {
   Product.findAll({
     order: [
       ['id', 'DESC']
     ]
   }).then(products => {
     var quant = products.length
-    res.render("product/index", { products: products, quant: quant })
+    res.render("admin/product/index", { products: products, quant: quant })
   })
 })
 //Deletar produtos
-router.post("/products/delete", (req, res) => {
+router.post("/product/delete", adminAuth, (req, res) => {
   var id = req.body.id
   if (id != undefined) {
     if (!isNaN(id)) {
@@ -77,21 +69,21 @@ router.post("/products/delete", (req, res) => {
         res.redirect("/product")
       })
     } else {
-      res.redirect("/product/index")
+      res.redirect("/product")
     }
   } else {
-    res.redirect("/product/index")
+    res.redirect("/product")
   }
 })
 //Editar produtos
-router.get("/product/edit/:id", (req, res) => {
+router.get("/product/edit/:id", adminAuth, (req, res) => {
   var id = req.params.id
   if (isNaN(id)) {
     res.redirect("/product")
   } else {
     Product.findByPk(id).then(products => {
       if (products != undefined) {
-        res.render("product/edit", { products: products })
+        res.render("admin/product/edit", { products: products })
       } else {
         res.redirect("/product")
       }
@@ -122,7 +114,7 @@ router.post("/product/update", upload.single("file"), (req, res) => {
       }
     }
   ).then(() => {
-    res.redirect("/product")
+    res.redirect("/admin/product")
   })
 })
 
