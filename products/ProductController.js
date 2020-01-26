@@ -12,38 +12,57 @@ const storage = multer.diskStorage({
     cb(null, "public/images/")
   },
   filename: function (req, file, cb) {
+
     cb(null, file.originalname + Date.now() + path.extname(file.originalname))
   }
 })
-
 const upload = multer({
   storage
 })
 
 router.get("/product/create", adminAuth, (req, res) => {
-  Product.findAll().then(products => {
-    res.render("admin/product/create", { erros: {}, msg: '', })
-  });
-
-
+  res.render("admin/product/create", { erros: {}, msg: req.flash('msg') })
 })
 //Salvar produtos
-router.post("/product/save", adminAuth, upload.single("file"), (req, res) => {
+router.post("/product/save", adminAuth, upload.single("file"), [
+  //Validação
+  check('code').not().isEmpty(),
+  check('description').not().isEmpty(),
+  check('provider').not().isEmpty(),
+  check('server').not().isEmpty(),
 
-  var imagem = req.file.filename
-  var code = req.body.code
-  var description = req.body.description
-  var provider = req.body.provider
-  var server = req.body.server
-  Product.create({
-    code: code,
-    description: description,
-    provider: provider,
-    server: server,
-    image: imagem
-  }).then(() => {
-    res.redirect("/product")
-  })
+], (req, res) => {
+
+  const erros = validationResult(req)
+  //Tratamento de erro
+  if (!erros.isEmpty()) {
+    res.render("admin/product/create", { erros: erros.array(), msg: '' })
+  } else {
+    var imagem = req.file.filename
+    var code = req.body.code
+    var description = req.body.description
+    var provider = req.body.provider
+    var server = req.body.server
+
+    Product.findOne({ where: { code: code } }).then(product => {
+
+      if (product == undefined) {
+        Product.create({
+          code: code,
+          description: description,
+          provider: provider,
+          server: server,
+          image: imagem
+        }).then(() => {
+          req.flash('msg', 'Produto cadastrado com sucesso!')
+          res.redirect("/product")
+        })
+      } else {
+        req.flash('msg', `Produto ${code} já cadastrado!`)
+        res.redirect("/product/create")
+      }
+    })
+  }
 })
 //Listar produtos
 router.get("/product", adminAuth, (req, res) => {
@@ -53,7 +72,7 @@ router.get("/product", adminAuth, (req, res) => {
     ]
   }).then(products => {
     var quant = products.length
-    res.render("admin/product/index", { products: products, quant: quant })
+    res.render("admin/product/index", { products: products, quant: quant, msg: req.flash('msg') })
   })
 })
 //Deletar produtos
@@ -66,6 +85,7 @@ router.post("/product/delete", adminAuth, (req, res) => {
           id: id
         }
       }).then(() => {
+        req.flash('msg', 'Produto deletado com sucesso!')
         res.redirect("/product")
       })
     } else {
@@ -114,6 +134,7 @@ router.post("/product/update", upload.single("file"), (req, res) => {
       }
     }
   ).then(() => {
+    req.flash('msg', 'Produto alterado com sucesso!')
     res.redirect("/admin/product")
   })
 })

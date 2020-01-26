@@ -4,13 +4,13 @@
   <%- include('../../partials/navbar.ejs') %>
 
   <div class="form1">
-    <div class="container">  
+    <div class="container">
       <% if (msg.length > 0) { %>
-        <div class="alert alert-danger" role="alert" data-dismiss="alert" style="width: 300px;">
-          <%= msg %>
-        </div>
-        <% } %>   
-      <div class="row">      
+      <div class="alert alert-danger" role="alert" data-dismiss="alert" style="width: 300px;">
+        <%= msg %>
+      </div>
+      <% } %>
+      <div class="row">
         <div class="col-md-6 col-md-offset-3">
           <form action="/login" method="POST">
             <div class="form">
@@ -19,19 +19,18 @@
                   <img src="https://s15.postimg.cc/bfkybc3cr/profile.png" class="avatar" />
                 </div>
                 <h2>Login</h2>
-                <label>Email</label>
                 <input type="email" name="email" placeholder="Email" reqired autocomplete="new-password" />
                 <% if (erros.email) { %>
-                  <div class="alert alert-danger" role="alert" data-dismiss="alert" style="height: 40px;font-size: 15px;">
-                    <%= erros.email.msg %>
-                  </div>
-                  <% } %>
+                <div class="alert alert-danger" role="alert" data-dismiss="alert" style="height: 40px;font-size: 15px;">
+                  <%= erros.email.msg %>
+                </div>
+                <% } %>
                 <input type="password" name="password" placeholder="Senha" reqired autocomplete="new-password" />
                 <% if (erros.password) { %>
-                  <div class="alert alert-danger" role="alert" data-dismiss="alert" style="height: 40px;font-size: 15px;">
-                    <%= erros.password.msg %>
-                  </div>
-                  <% } %>
+                <div class="alert alert-danger" role="alert" data-dismiss="alert" style="height: 40px;font-size: 15px;">
+                  <%= erros.password.msg %>
+                </div>
+                <% } %>
               </div>
               <div class="button-group" style="margin-top: -50px;">
                 <button class="btn login-btn" type="submit">LOGIN</button>

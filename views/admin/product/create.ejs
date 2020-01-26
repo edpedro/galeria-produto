@@ -2,12 +2,18 @@
 
 <body>
   <%- include('../../partials/homenavbar.ejs') %>
-  <div class="container">
-    <% if (erros.length > 0) { %>
-      <div class="alert alert-danger" role="alert" data-dismiss="alert" style="height: 40px;font-size: 15px;width: 300px;">
-        <p>Favor preencher todos os campos</p>
+  <div class="container">  
+    <% if (msg.length > 0) { %>        
+      <div class="alert alert-danger " role="alert" data-dismiss="alert" style="width: 400px;">
+        <%= msg %>
       </div>
-      <% } %>
+     <% } %>  
+      <% if (erros.length > 0) { %>
+        <div class="alert alert-danger" role="alert" data-dismiss="alert" style="height: 40px;font-size: 15px;width: 300px;">
+          <p>Favor preencher todos os dados</p>        
+        </div>      
+         
+        <% } %>
     <div class="row">
       <div class="col-md-6 col-md-offset-3" style="margin-top: -10px;">
         <form action="/product/save" method="POST" enctype="multipart/form-data">
@@ -18,7 +24,7 @@
               <input type="text" name="description" placeholder="Descrição"  reqired autocomplete="new-password" />            
               <input type="text" name="provider" placeholder="Fornecedor"  reqired autocomplete="new-password" />            
               <textarea type="text" name="server" placeholder="Para quer server"  reqired autocomplete="new-password" style="margin-top: 10px;"></textarea>            
-              <input type="file" name="file" reqired autocomplete="new-password" multiple/>            
+              <input type="file" name="file" reqired autocomplete="new-password" />            
             </div>
             <div class="button-group" style="margin-top: -50px;">
               <button class="btn login-btn" type="submit">CADASTRAR</button>

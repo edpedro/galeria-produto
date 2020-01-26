@@ -7,6 +7,7 @@ const { check, validationResult } = require("express-validator")
 router.get("/users/create", (req, res) => {
   res.render("admin/users/create", { erros: {}, msg: req.flash('msg') })
 })
+
 router.post("/users/save", [
   //Validação
   check('email', "Favor inserir email valido").isEmail(),
@@ -16,6 +17,7 @@ router.post("/users/save", [
 ], (req, res) => {
 
   const erros = validationResult(req)
+  console.log(erros)
   //Tratamento de erro
   if (!erros.isEmpty()) {
     res.render("admin/users/create", { erros: erros.mapped(), msg: '' })
@@ -79,11 +81,11 @@ router.post("/login",  [
           res.redirect("/")
         } else {
           req.flash('msg', 'Email ou Senha invalido')
-          res.redirect("/admin/users/login")
+          res.redirect("/users/login")
         }
       } else {
         req.flash('msg', 'Email ou Senha invalido')
-        res.redirect("/admin/users/login")
+        res.redirect("/users/login")
       }
     })
   }

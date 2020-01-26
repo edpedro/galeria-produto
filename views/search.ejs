@@ -2,10 +2,10 @@
 
 <body>
     <% if(session){ %>
-        <%- include('./partials/homenavbar.ejs') %>
-      <% } else{ %>
-        <%- include('./partials/navbar.ejs') %>
-      <% } %>
+    <%- include('./partials/homenavbar.ejs') %>
+    <% } else{ %>
+    <%- include('./partials/navbar.ejs') %>
+    <% } %>
 
     <div class="container">
         <div class="row">
@@ -27,7 +27,7 @@
                             <div class="product-name">
                                 <h1><%= search.code %></h1>
                                 <p class="price">Descrição</p>
-                                <p style="color:#363636"><%= search.description %></p>
+                                <p style="color:#363636; text-transform: uppercase"><%= search.description %></p>
                             </div>
                         </div>
                         <div class="product-option">
@@ -37,9 +37,9 @@
                             </div>
                             <div class="product-color">
                                 <h3>Pra que server</h3>
-                                <p style="color:#363636"><%= search.server %></p>
+                                <p style="width: 13em;word-wrap: break-word;color:#363636; text-transform: uppercase">
+                                    <%= search.server %></p>
                             </div>
-
                         </div>
                     </div>
                 </div>
